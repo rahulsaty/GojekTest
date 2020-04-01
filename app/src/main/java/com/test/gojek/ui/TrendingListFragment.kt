@@ -57,7 +57,12 @@ class TrendingListFragment : BaseFragment<TrendingViewModel>() {
             swipeRefreshLayout.isRefreshing = false
         })
         viewModel.isNetworkError.observe(this, Observer { aBoolean: Boolean? ->
-            {}
+            aBoolean?.let {
+                skeletonScreen?.hide()
+                getBaseActivity().attachFragment(R.id.container, NoNetworkFragment())
+            }
+
+
         })
         viewModel.errorMessage.observe(
             this,

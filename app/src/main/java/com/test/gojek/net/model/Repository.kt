@@ -2,6 +2,7 @@ package com.test.gojek.net.model
 
 
 data class Repository(
+     var name: String?,
      var author: String?=null,
      var avatar: String? ,
      var currentPeriodStars: Long = 0,
@@ -9,7 +10,6 @@ data class Repository(
      var forks: Long = 0,
      var language: String?,
      var languageColor: String?,
-     var name: String?,
      var stars: Long = 0,
      var url: String,
      var expanded:Boolean = false);
