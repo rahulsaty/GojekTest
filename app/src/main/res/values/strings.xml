@@ -1,4 +1,8 @@
 <resources>
-    <string name="app_name">Gojek</string>
+    <string name="app_name">GoJekTestApp</string>
+    <string name="action_settings">Settings</string>
     <string name="base_url">https://github-trending-api.now.sh/</string>
+    <string name="retry">RETRY</string>
+    <string name="an_alien_is_probably_blocking_your_signal">An alien is probably blocking your signal</string>
+    <string name="something_went_wrong">Something went wrong...</string>
 </resources>

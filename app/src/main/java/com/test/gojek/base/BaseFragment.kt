@@ -34,25 +34,53 @@ abstract class BaseFragment<V: BaseViewModel> : DaggerFragment() {
     abstract fun instantiateViewModel(): V
 
 
+    abstract fun fragmentTag(): String
+
+
+    private lateinit var viewDataBinding: ViewDataBinding
+
+
+    /**
+     * Override for set binding variable
+     *
+     * @return variable id
+     */
+    abstract fun getBindingVariable(): Int
+
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setHasOptionsMenu(true)
+        retainInstance = true
+    }
     override fun onAttach(context: Context) {
         super.onAttach(context)
         if (context !is BaseActivity) throw IllegalStateException("BaseFragment can only be attached to BaseActivity")
     }
-
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         viewModel = instantiateViewModel()
         registerBaseEvents()
-        return inflater.inflate(getLayoutId(), container, false)
-
+        if (getBindingVariable() == noViewBinding()) {
+            return inflater.inflate(getLayoutId(), container, false)
+        }
+        initDataBinding(container)
+        return viewDataBinding.root
     }
 
 
+    private fun initDataBinding(container: ViewGroup?) {
+        viewDataBinding = DataBindingUtil.inflate(layoutInflater, getLayoutId(), container, false)
+        viewDataBinding.setVariable(getBindingVariable(), viewModel)
+    }
+
     private fun registerBaseEvents() {
-        viewModel?.let { getBaseActivity().registerBaseEvents(it) };
+        getBaseActivity().registerBaseEvents(viewModel);
     }
 
     fun getBaseActivity(): BaseActivity = activity as BaseActivity
 
+    @Suppress("UNCHECKED_CAST")
+    fun <T : ViewDataBinding> getViewDataBinding():T = viewDataBinding as T
 
     inline fun <reified T : ViewModel> getViewModel(fragment: Fragment, isCommon: Boolean = false): T =
         if (isCommon) {
@@ -62,5 +90,4 @@ abstract class BaseFragment<V: BaseViewModel> : DaggerFragment() {
         }
 
 
-    abstract fun fragmentTag(): String
 }

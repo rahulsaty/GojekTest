@@ -1,0 +1,17 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context="com.gojektestapp.ui.TrendingActivity">
+    <item
+        android:id="@+id/action_star"
+        android:orderInCategory="100"
+        android:title="Sort by star"
+        app:showAsAction="never" />
+    <item
+        android:id="@+id/action_name"
+        android:orderInCategory="100"
+        android:title="Sort by name"
+        app:showAsAction="never" />
+
+
+</menu>

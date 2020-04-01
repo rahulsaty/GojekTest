@@ -38,7 +38,7 @@ abstract class BaseViewModel : ViewModel() {
         }
 
 
-    fun handleError(e: Throwable) {
+    open fun handleError(e: Throwable) {
         isLoading.set(false)
         if (e is HttpException) {
             val body: ResponseBody? = e.response()!!.errorBody()
@@ -50,7 +50,7 @@ abstract class BaseViewModel : ViewModel() {
         }
     }
 
-    fun getErrorMessage(responseBody: ResponseBody?): String {
+     fun getErrorMessage(responseBody: ResponseBody?): String {
         try {
             val jsonObject = JSONObject(responseBody!!.string())
             return jsonObject.getString("message")

@@ -54,5 +54,6 @@ abstract class BaseActivity : DaggerAppCompatActivity() {
 }
 
 val DEFAULT_FRAGMENT_CONFIG = FragmentConfig();
-data class FragmentConfig(val shouldAdd: Boolean = false, val addToBackStack: Boolean = true)
+fun noViewBinding() = -1
+data class FragmentConfig(val shouldAdd: Boolean = false, val addToBackStack: Boolean = false)
 

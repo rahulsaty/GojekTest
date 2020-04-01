@@ -1,6 +1,6 @@
-package com.test.gotjek.net
+package com.test.gojek.net
 
-import com.test.gotjek.net.model.Repository
+import com.test.gojek.net.model.Repository
 import io.reactivex.Single
 import retrofit2.http.GET
 

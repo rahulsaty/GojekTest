@@ -3,7 +3,7 @@ package com.test.gojek.di.module
 import com.google.gson.FieldNamingPolicy
 import com.google.gson.Gson
 import com.google.gson.GsonBuilder
-import com.test.gotjek.net.RestApi
+import com.test.gojek.net.RestApi
 import dagger.Module
 import dagger.Provides
 import okhttp3.HttpUrl

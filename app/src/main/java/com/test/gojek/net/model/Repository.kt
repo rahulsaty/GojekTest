@@ -1,4 +1,4 @@
-package com.test.gotjek.net.model
+package com.test.gojek.net.model
 
 
 data class Repository(
