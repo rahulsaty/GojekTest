@@ -9,6 +9,9 @@ abstract class TrendingProvider {
     @ContributesAndroidInjector
     abstract fun provideTrendingListFragment(): TrendingListFragment
 
+    @ContributesAndroidInjector
+    abstract fun provideNoNetworkFragment(): NoNetworkFragment
+
 
 
 }
