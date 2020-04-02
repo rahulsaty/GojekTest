@@ -5,7 +5,6 @@ import android.graphics.Color
 import android.graphics.PorterDuff
 import android.graphics.PorterDuffColorFilter
 import android.text.TextUtils
-import android.util.Log
 import android.view.View
 import android.widget.TextView
 import com.test.gojek.BR

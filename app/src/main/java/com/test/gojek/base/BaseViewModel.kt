@@ -22,7 +22,6 @@ abstract class BaseViewModel : ViewModel() {
     lateinit var appSchedulerProvider: RxSchedulerProvider
 
     val showToast = MutableLiveData<String>()
-    val hideKeyBoard = MutableLiveData<Boolean>()
     val isLoading = ObservableBoolean(false)
     private var compositeDisposable = CompositeDisposable();
 

@@ -4,8 +4,6 @@ import androidx.lifecycle.MutableLiveData
 import com.test.gojek.base.BaseViewModel
 import com.test.gojek.net.GitHubClient
 import com.test.gojek.net.model.Repository
-import okhttp3.ResponseBody
-import retrofit2.HttpException
 import java.io.IOException
 import javax.inject.Inject
 
@@ -17,7 +15,7 @@ class TrendingViewModel @Inject constructor(): BaseViewModel() {
 
     var data = MutableLiveData<List<Repository>>()
 
-    var isNetworkError = MutableLiveData<Boolean?>()
+    var isNetworkError = MutableLiveData<Boolean>()
 
     var errorMessage = MutableLiveData<String?>()
 
@@ -33,14 +31,12 @@ class TrendingViewModel @Inject constructor(): BaseViewModel() {
 
     override fun handleError(e: Throwable) {
         isLoading.set(false)
-        if (e is HttpException) {
-            val body: ResponseBody? = e.response()!!.errorBody()
-            showToast.value =getErrorMessage(body);
-        } else if (e is IOException) {
+       if (e is IOException) {
             showToast.value = "No internet found"
             isNetworkError.value = true;
         } else {
             showToast.value =  e.message.toString()
+            errorMessage.value = e.message.toString()
         }
     }
 
