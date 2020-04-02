@@ -1,6 +1,7 @@
 package com.test.gojek.ui.viemodel
 
 import androidx.lifecycle.MutableLiveData
+import com.test.gojek.R
 import com.test.gojek.base.BaseViewModel
 import com.test.gojek.net.GitHubClient
 import com.test.gojek.net.model.Repository
@@ -32,11 +33,12 @@ class TrendingViewModel @Inject constructor(): BaseViewModel() {
     override fun handleError(e: Throwable) {
         isLoading.set(false)
        if (e is IOException) {
-            showToast.value = "No internet found"
+            showToast.value = applicationContext.getString(R.string.no_internet_found)
             isNetworkError.value = true;
         } else {
             showToast.value =  e.message.toString()
             errorMessage.value = e.message.toString()
+            isNetworkError.value = true;
         }
     }
 

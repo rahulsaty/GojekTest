@@ -6,9 +6,11 @@ import com.test.gojek.BuildConfig
 import com.test.gojek.R
 import dagger.Module
 import dagger.Provides
+import okhttp3.Cache
 import okhttp3.HttpUrl
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
+import java.io.File
 import javax.inject.Singleton
 
 
@@ -18,10 +20,15 @@ class OkHttpModule {
     @Provides
     @Singleton
     internal fun provideOkHttpClient(
-        clientBuilder: OkHttpClient.Builder
+        clientBuilder: OkHttpClient.Builder,context: Context
     ): OkHttpClient {
 
         addLoggingInterceptor(clientBuilder)
+        val httpCacheDirectory = File(context.cacheDir, "offlineCache")
+        val cache = Cache(httpCacheDirectory, 10 * 1024 * 1024)
+
+        return clientBuilder.cache(cache).addInterceptor(CacheInterceptor()).addInterceptor(OfflineCacheInterceptor())
+            .build();
         return clientBuilder.build()
     }
 

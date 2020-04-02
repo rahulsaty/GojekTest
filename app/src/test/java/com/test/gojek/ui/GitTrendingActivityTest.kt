@@ -48,11 +48,15 @@ class GitTrendingActivityTest {
     @Test
     fun validateTitleContent() {
         val appNameTextView: TextView = controller.get().findViewById(R.id.toolbar_title)
-        Assert.assertEquals("Trending", appNameTextView.text.toString())
+        assertEquals("Trending", appNameTextView.text.toString())
     }
 
     @Test
     fun validateNoInternet_Fragment() {
+        controller.get().getSupportFragmentManager()
+            .beginTransaction()
+            .replace(R.id.container, noNetworkFragment)
+            .commit()
         val title = noNetworkFragment.errorTitle
         assertEquals(
             controller.get().getResources().getString(R.string.something_went_wrong),
@@ -67,7 +71,7 @@ class GitTrendingActivityTest {
         val errorImage =
             noNetworkFragment.errorImage
         val drawableResId = Shadows.shadowOf(errorImage.drawable).createdFromResId
-        Assert.assertEquals(
+        assertEquals(
             R.drawable.nointernet_connection.toLong(),
             drawableResId.toLong()
         )

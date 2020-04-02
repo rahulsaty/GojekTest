@@ -29,6 +29,7 @@
             android:layout_marginTop="@dimen/margin_16dp"
             android:layout_marginBottom="@dimen/margin_16dp"
             android:scaleType="centerCrop"
+            android:background="@drawable/circle_background"
             loadImage="@{data.avatar}"/>
 
         <TextView
@@ -41,7 +42,7 @@
             android:fontFamily="@font/roboto"
             android:textColor="@color/color_525753"
             android:text="@{data.name}"
-            android:textSize="@dimen/textsize_16sp" />
+            android:textSize="@dimen/textsize_12dp" />
 
         <TextView
             android:id="@+id/title"
@@ -52,9 +53,9 @@
             android:layout_marginTop="@dimen/margin_6dp"
             android:layout_toRightOf="@+id/user_icon"
             android:fontFamily="@font/roboto_medium"
-            android:textColor="@color/color_525753"
             android:text="@{data.author}"
-            android:textSize="@dimen/textsize_14sp" />
+            android:textColor="@color/color_525753"
+            android:textSize="@dimen/font_size_15dp" />
 
         <RelativeLayout
             android:id="@+id/detailLayout"
@@ -76,7 +77,7 @@
                 android:fontFamily="@font/roboto"
                 android:textColor="@color/color_525753"
                 android:text="@{data.description}"
-                android:textSize="@dimen/textsize_12sp" />
+                android:textSize="@dimen/textsize_12dp" />
 
             <TextView
                 android:id="@+id/lang"
@@ -90,7 +91,7 @@
                 android:drawablePadding="4dp"
                 android:fontFamily="@font/roboto"
                 android:textColor="@color/color_525753"
-                android:textSize="@dimen/textsize_12sp" />
+                android:textSize="@dimen/textsize_12dp" />
 
             <TextView
                 android:id="@+id/vote"
@@ -103,7 +104,7 @@
                 android:drawableStart="@drawable/star_yellow"
                 android:fontFamily="@font/roboto"
                 android:textColor="@color/color_525753"
-                android:textSize="@dimen/textsize_12sp" />
+                android:textSize="@dimen/textsize_12dp" />
 
             <TextView
                 android:id="@+id/frok"
@@ -116,7 +117,7 @@
                 android:drawableStart="@drawable/fork_black"
                 android:fontFamily="@font/roboto"
                 android:textColor="@color/color_525753"
-                android:textSize="@dimen/textsize_12sp" />
+                android:textSize="@dimen/textsize_12dp" />
 
 
         </RelativeLayout>

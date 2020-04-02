@@ -36,7 +36,7 @@
             android:textColor="@color/color_4A4A4A"
             android:fontFamily="@font/roboto_bold"
             android:text="@string/something_went_wrong"
-            android:textSize="@dimen/fontsize_18sp" />
+            android:textSize="@dimen/fontsize_18dp" />
 
     <TextView android:id="@+id/errorDescription"
         android:layout_width="wrap_content"
@@ -45,7 +45,7 @@
         android:fontFamily="@font/roboto"
         android:text="@string/an_alien_is_probably_blocking_your_signal"
         android:textColor="@color/color_929292"
-        android:textSize="@dimen/font_size_15sp"
+        android:textSize="@dimen/font_size_15dp"
       />
     </LinearLayout>
 
@@ -59,7 +59,7 @@
         android:fontFamily="@font/roboto_medium"
         android:gravity="center" android:textColor="@color/color_31B057"
         android:text="@string/retry"
-        android:textSize="@dimen/font_size_15sp"
+        android:textSize="@dimen/font_size_15dp"
         android:onClick="@{()->viewModel.retry()}"
         app:layout_constraintBottom_toBottomOf="parent" />
 

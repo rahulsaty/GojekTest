@@ -1,5 +1,6 @@
 package com.test.gojek.ui.viemodel
 
+import android.content.Context
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import com.test.gojek.mockDummyData
 import com.test.gojek.net.GitHubClient
@@ -22,6 +23,7 @@ import org.mockito.BDDMockito.given
 import org.mockito.InjectMocks
 import org.mockito.Mock
 import org.mockito.junit.MockitoJUnitRunner
+import org.robolectric.RuntimeEnvironment
 import retrofit2.HttpException
 import retrofit2.Response
 import java.io.IOException
@@ -35,6 +37,8 @@ class TrendingViewModelTest {
     lateinit  var trendingViewModel: TrendingViewModel
     @Mock
     lateinit var client: GitHubClient
+    @Mock
+    lateinit var context: Context;
     @InjectMocks
     lateinit var appSchedulerProvider: AppSchedulerProvider
 
@@ -42,6 +46,7 @@ class TrendingViewModelTest {
     fun setUp() {
         trendingViewModel = TrendingViewModel()
         trendingViewModel.appSchedulerProvider = appSchedulerProvider;
+        trendingViewModel.applicationContext = context
         RxJavaPlugins.setIoSchedulerHandler { Schedulers.trampoline() }
         RxJavaPlugins.setComputationSchedulerHandler { Schedulers.trampoline() }
         RxJavaPlugins.setNewThreadSchedulerHandler { Schedulers.trampoline() }
@@ -56,8 +61,7 @@ class TrendingViewModelTest {
 
         trendingViewModel.loadData()
 
-        var error = trendingViewModel.isNetworkError.value;
-        assertEquals(true,error)
+        assertEquals(true,trendingViewModel.isNetworkError.value)
     }
 
     @Test
@@ -67,7 +71,7 @@ class TrendingViewModelTest {
                 HttpException(
                     Response.error<Any>(
                         400, ResponseBody.create(
-                            MediaType.parse("text/plain"), "{}"
+                            MediaType.parse("application/json"),  "{\"message\":\"HTTP 400 Response.error()\"}"
                         )
                     )
                 )

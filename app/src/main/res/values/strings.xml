@@ -5,4 +5,5 @@
     <string name="retry">RETRY</string>
     <string name="an_alien_is_probably_blocking_your_signal">An alien is probably blocking your signal</string>
     <string name="something_went_wrong">Something went wrong...</string>
+    <string name="no_internet_found">No internet found</string>
 </resources>
