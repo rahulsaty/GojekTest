@@ -1,5 +1,6 @@
 package com.test.gojek.ui.viemodel
 
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.test.gojek.R
 import com.test.gojek.base.BaseViewModel
@@ -14,19 +15,25 @@ class TrendingViewModel @Inject constructor(): BaseViewModel() {
     @Inject
     lateinit var gitHubClient: GitHubClient;
 
-    var data = MutableLiveData<List<Repository>>()
+   private val data : MutableLiveData<List<Repository>> by lazy {
+        MutableLiveData<List<Repository>>().also { loadData() }
+    }
 
     var isNetworkError = MutableLiveData<Boolean>()
 
     var errorMessage = MutableLiveData<String?>()
 
+    fun getUsers(): LiveData<List<Repository>> {
+        return data
+    }
 
-     fun loadData(isRefreshed:Boolean = false) {
+    fun pulltoRefresh(){
+        loadData()
+    }
+     private fun loadData() {
 
-         if(data.value == null || isRefreshed) {
              gitHubClient.getList()
-                 .call({ list -> data.value = list }, { t: Throwable -> handleError(t) });
-         }
+                 .call({ list -> data.value = list }, { t: Throwable -> handleError(t) })
 
     }
 

@@ -50,6 +50,7 @@ abstract class BaseFragment<V: BaseViewModel> : DaggerFragment() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        viewModel = instantiateViewModel()
         setHasOptionsMenu(true)
         retainInstance = true
     }
@@ -58,7 +59,7 @@ abstract class BaseFragment<V: BaseViewModel> : DaggerFragment() {
         if (context !is BaseActivity) throw IllegalStateException("BaseFragment can only be attached to BaseActivity")
     }
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        viewModel = instantiateViewModel()
+
         registerBaseEvents()
         if (getBindingVariable() == noViewBinding()) {
             return inflater.inflate(getLayoutId(), container, false)

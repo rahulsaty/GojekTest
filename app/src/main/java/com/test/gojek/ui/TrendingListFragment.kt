@@ -1,7 +1,9 @@
 package com.test.gojek.ui
 
 import android.os.Bundle
+import android.view.LayoutInflater
 import android.view.View
+import android.view.ViewGroup
 import android.widget.Toast
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -29,30 +31,31 @@ class TrendingListFragment : BaseFragment<TrendingViewModel>() {
 
     override fun fragmentTag(): String = TrendingListFragment::class.java.simpleName
 
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
         swipeRefreshLayout.setColorSchemeResources(R.color.colorFontGreyDark)
 
         var skeletonScreen: SkeletonScreen? = null;
-        viewModel.loadData()
-
 
         recyclerView.layoutManager = LinearLayoutManager(context, RecyclerView.VERTICAL, false)
-        skeletonScreen = Skeleton.bind(recyclerView)
-            .adapter(adapter)
-            .shimmer(true)
-            .angle(20)
-            .frozen(false)
-            .duration(1200)
-            .count(10)
-            .load(R.layout.trending_skelton_item)
-            .show()
-
-        viewModel.data.observe(this, Observer { repositories: List<Repository> ->
+        if (savedInstanceState != null) {
+            recyclerView.adapter = this.adapter
+        } else {
+            skeletonScreen = Skeleton.bind(recyclerView)
+                .adapter(adapter)
+                .shimmer(true)
+                .angle(20)
+                .frozen(false)
+                .duration(1200)
+                .count(10)
+                .load(R.layout.trending_skelton_item)
+                .show()
+        }
+        viewModel.getUsers().observe(this, Observer { repositories: List<Repository> ->
             skeletonScreen?.hide()
-            if (adapter.data.size != repositories.size)
-                adapter.setData(repositories as ArrayList<Repository>)
+            adapter.setData(repositories as ArrayList<Repository>)
             swipeRefreshLayout.isRefreshing = false
         })
         viewModel.isNetworkError.observe(this, Observer { aBoolean: Boolean? ->
@@ -69,12 +72,12 @@ class TrendingListFragment : BaseFragment<TrendingViewModel>() {
                 Toast.makeText(context, message, Toast.LENGTH_SHORT).show()
             })
 
-        swipeRefreshLayout.setOnRefreshListener { viewModel.loadData(true) }
+        swipeRefreshLayout.setOnRefreshListener { viewModel.pulltoRefresh() }
     }
 
     override fun onSaveInstanceState(outState: Bundle) {
         super.onSaveInstanceState(outState)
-        outState.putBoolean("hasdata", viewModel.data.value?.size != 0)
+        outState.putBoolean("hasdata", viewModel.getUsers().value?.size != 0)
     }
 
     override fun getBindingVariable(): Int = BR.viewModel
